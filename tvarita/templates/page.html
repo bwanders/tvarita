@@ -2,11 +2,11 @@
 <html>
 <head>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+<title>{{ title }}</title>
 </head>
-<body id='error'>
-<div id='message'>
-<h1>Page not Found</h1>
-<span>What isn't there can not be served</span>
+<body>
+<div id='content'>
+{{ content|safe }}
 </div>
 </body>
 </html>

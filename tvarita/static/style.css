@@ -7,6 +7,25 @@ html { /* We always want at least this height */
     min-height: 100%;
 }
 
+#content {
+    font-family: sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+    width: 740px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 1em;
+}
+
+p {
+    text-indent: 1em;
+}
+
+p:first-child {
+    text-indent: 0;
+}
+
 /**
  * Error pages.
  */
