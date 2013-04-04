@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
-<title>{{ title }}</title>
-</head>
-<body>
-<div id='controls'>
-</div>
-<div id='content'>
+{% extends "base.html" %}
+
+{% block content %}
 <h1>{{ title }}</h1>
 <form id='edit' method='post'>
 <textarea name='page'>
 {{ content }}
 </textarea>
-<input type='submit' value='Save'>
+<input type='submit' name='do' value='Save'>
 </form>
-</div>
-</body>
-</html>
+{% endblock %}

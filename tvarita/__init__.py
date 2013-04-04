@@ -23,6 +23,13 @@ def get_page_source(page):
 
 
 def save_page(page, source):
+    # fix newlines
+    source = source.replace('\r\n','\n')
+
+    # fix pre and post whitespace
+    source = source.strip()
+
+    # save the actual page
     saved_page = os.path.join(config.page_path, normalize(page))
     with open(saved_page, 'w') as f:
         f.write(source)
@@ -35,7 +42,10 @@ def page_exists(page):
 
 def render_page(page):
     page_source = get_page_source(page)
-    return markdown.markdown(page_source, safe_mode='escape', output_format='html5', extensions=['wikilinks'])
+    return render_source(page_source)
+
+def render_source(source):
+    return markdown.markdown(source, safe_mode='escape', output_format='html5', extensions=['wikilinks'])
 
 @app.route('/')
 def index():
@@ -73,8 +83,9 @@ def edit_page_posted(page):
 
     return redirect(url_for('serve_page', page=page))
 
+
 @app.errorhandler(404)
 @app.errorhandler(405)
 def page_not_found(error):
-    return render_template('error.html', error=error), 404
+    return render_template('error.html', error=error), error.code
 

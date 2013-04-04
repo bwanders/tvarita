@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
-<title>{{ title }}</title>
-</head>
-<body>
-<div id='controls'>
+{% extends "base.html" %}
+
+{% block controls %}
 <a href="{{ url_for('edit_page', page=page) }}">Edit</a>
-</div>
-<div id='content'>
+{% endblock %}
+
+{% block content %}
 {{ content|safe }}
-</div>
-</body>
-</html>
+{% endblock %}
+
