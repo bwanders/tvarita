@@ -79,9 +79,11 @@ def edit_page_posted(page):
 
     new_page_source = request.form['page']
 
-    save_page(page, new_page_source)
-
-    return redirect(url_for('serve_page', page=page))
+    if request.form['do'] == 'Preview':
+        return render_template('edit.html', content=new_page_source, title = page + ' [edit]', page=page, preview=render_source(new_page_source))
+    else:
+        save_page(page, new_page_source)
+        return redirect(url_for('serve_page', page=page))
 
 
 @app.errorhandler(404)

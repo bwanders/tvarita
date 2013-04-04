@@ -6,6 +6,13 @@
 <textarea name='page'>
 {{ content }}
 </textarea>
+<input type='submit' name='do' value='Preview'>
 <input type='submit' name='do' value='Save'>
 </form>
+
+{% if preview %}
+<div id='preview'>
+{{ preview|safe }}
+</div>
+{% endif %}
 {% endblock %}
