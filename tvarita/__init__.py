@@ -28,13 +28,18 @@ def save_page(page, source):
 
     # fix pre and post whitespace
     source = source.strip()
-    # add newline at end of file
-    source = source + '\n'
 
     # save the actual page
     saved_page = os.path.join(config.page_path, normalize(page))
-    with open(saved_page, 'w') as f:
-        f.write(source)
+
+    # empty source means remove page
+    if not source:
+        os.remove(saved_page)
+    else:
+        with open(saved_page, 'w') as f:
+            # add newline at end of file
+            source = source + '\n'
+            f.write(source)
 
 
 def page_exists(page):
