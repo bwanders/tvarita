@@ -52,7 +52,7 @@ def render_page(page):
     return render_source(page_source)
 
 def render_source(source):
-    return markdown.markdown(source, safe_mode='escape', output_format='html5', extensions=['wikilinks'])
+    return markdown.markdown(source, safe_mode='escape', output_format='html5', extensions=['wikilinks', 'headerid'])
 
 @app.route('/')
 def index():
