@@ -28,6 +28,8 @@ def save_page(page, source):
 
     # fix pre and post whitespace
     source = source.strip()
+    # add newline at end of file
+    source = source + '\n'
 
     # save the actual page
     saved_page = os.path.join(config.page_path, normalize(page))
