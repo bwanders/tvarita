@@ -26,9 +26,20 @@ p:first-child {
     text-indent: 0;
 }
 
+a {
+    text-decoration: none;
+    color: #d22;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+}
+
+
 /**
  * Error pages.
  */
+
 body#error {
     font-family: sans-serif;
     height: 100%;
@@ -56,4 +67,36 @@ body#error {
     text-align: center;
     color: #114;
     text-shadow: 0 1px 0 #88d;
+}
+
+
+/**
+ * Controls
+ */
+
+#controls {
+    font-family: sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5em;
+    width: 740px;
+}
+
+#controls a {
+    text-decoration: none;
+    color: silver;
+}
+
+#controls a:hover, #controls a:active {
+    color: red;
+}
+
+
+/**
+ * Edit pages
+ */
+
+#edit textarea {
+    width: 100%;
+    height: 300px;
 }

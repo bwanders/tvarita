@@ -6,10 +6,15 @@
 </head>
 <body>
 <div id='controls'>
-<a href="{{ url_for('edit_page', page=page) }}">Edit</a>
 </div>
 <div id='content'>
-{{ content|safe }}
+<h1>{{ title }}</h1>
+<form id='edit' method='post'>
+<textarea name='page'>
+{{ content }}
+</textarea>
+<input type='submit' value='Save'>
+</form>
 </div>
 </body>
 </html>
