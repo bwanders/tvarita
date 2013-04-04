@@ -16,6 +16,7 @@ html { /* We always want at least this height */
 
 h1, h2, h3, h4, h5, h6 {
     margin-top: 1em;
+    font-weight: normal;
 }
 
 p {
@@ -28,11 +29,12 @@ p:first-child {
 
 a {
     text-decoration: none;
-    color: #d22;
+    color: #900;
 }
 
 a:hover, a:active {
     text-decoration: underline;
+    color: #f00;
 }
 
 
@@ -69,4 +71,5 @@ a:hover, a:active {
 
 #preview {
     background-color: #eee;
+    position: relative;
 }
