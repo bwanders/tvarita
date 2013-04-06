@@ -6,17 +6,30 @@ import markdown
 
 import config
 
+pagepath = os.path.abspath(config.page_path)
+
 app = Flask(__name__)
 
 
 def normalize(page):
-    return page.replace('.', '')
+    return page.replace('.', '_').replace('/', '_').replace(' ','_')
+
+
+def page_path(page):
+    return os.path.abspath(os.path.join(pagepath, normalize(page)))
+
+
+def check_page(page):
+    return page_path(page).startswith(pagepath) and False
+
+
+def page_exists(page):
+    return check_page(page) and os.path.lexists(page_path(page))
 
 
 def get_page_source(page):
     if page_exists(page):
-        requested_page = os.path.join(config.page_path, normalize(page))
-        with open(requested_page) as f:
+        with open(page_path(page)) as f:
             return f.read()
     else:
         return ''
@@ -30,7 +43,7 @@ def save_page(page, source):
     source = source.strip()
 
     # save the actual page
-    saved_page = os.path.join(config.page_path, normalize(page))
+    saved_page = page_path(page)
 
     # empty source means remove page
     if not source:
@@ -42,17 +55,14 @@ def save_page(page, source):
             f.write(source)
 
 
-def page_exists(page):
-    requested_page = os.path.join(config.page_path, normalize(page))
-    return os.path.isfile(requested_page)
-
-
 def render_page(page):
     page_source = get_page_source(page)
     return render_source(page_source)
 
+
 def render_source(source):
     return markdown.markdown(source, safe_mode='escape', output_format='html5', extensions=['wikilinks', 'headerid'])
+
 
 @app.route('/')
 def index():
@@ -84,6 +94,9 @@ def edit_page_posted(page):
     if normalize(page) != page:
         abort(405)
 
+    if not check_page(page):
+        abort(403)
+
     new_page_source = request.form['page']
 
     if request.form['do'] == 'Preview':
@@ -94,6 +107,7 @@ def edit_page_posted(page):
 
 
 @app.errorhandler(404)
+@app.errorhandler(403)
 @app.errorhandler(405)
 def page_not_found(error):
     return render_template('error.html', error=error), error.code
